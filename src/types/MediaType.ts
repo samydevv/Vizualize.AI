@@ -1,0 +1,1 @@
+export type MediaType = '.png' | '.jpg' | '.jpeg' | '.webp' ;
