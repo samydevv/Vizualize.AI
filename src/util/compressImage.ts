@@ -28,7 +28,7 @@ export default async (
     console.log("Image compressed successfully");
     return Promise.resolve("success");
   } catch (error) {
-    console.error(`Failed to compress image: ${error}`);
+    console.log(`Failed : ${error}`);
     return Promise.reject("failed");
   }
 };

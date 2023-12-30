@@ -14,6 +14,7 @@ import multer from "multer";
 import dotenv from "dotenv";
 import Replicate from "replicate";
 import { Express, Request, Response, NextFunction } from "express";
+import saveResponse from "./util/saveResponse.js";
 
 //dotenv config
 dotenv.config();
@@ -79,6 +80,7 @@ export default (app: Express) => {
           let output: any;
           if (modelNumber === "1") {
             output = await replicate.run(MODEL_1, { input });
+            await saveResponse(output, file.originalname);
           } else if (modelNumber === "2") {
             output = await replicate.run(MODEL_2, { input });
           }
@@ -87,6 +89,7 @@ export default (app: Express) => {
           res.send(output);
         })
         .catch((err) => {
+          console.log(err);
           return res
             .status(415)
             .send("Failed to compress unsupported image type");
