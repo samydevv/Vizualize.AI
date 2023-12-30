@@ -6,7 +6,7 @@ export default async (
   outPath: string,
   quality: number,
   mediaType: MediaType
-): Promise<void> => {
+): Promise<string> => {
   try {
     let instance = sharp(inputPath);
     switch (mediaType) {
@@ -26,7 +26,9 @@ export default async (
 
     await instance.resize(200, 200).toFile(outPath);
     console.log("Image compressed successfully");
+    return Promise.resolve("success");
   } catch (error) {
     console.error(`Failed to compress image: ${error}`);
+    return Promise.reject("failed");
   }
 };
